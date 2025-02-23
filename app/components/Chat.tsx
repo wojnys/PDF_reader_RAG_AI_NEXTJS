@@ -79,6 +79,7 @@ const Chat = () => {
             }
         });
 
+        console.log(process.env.SERVER_URL);
         try {
             const response = await fetch(`${process.env.SERVER_URL}/api/chat`, {
                 method: "POST",
