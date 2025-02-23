@@ -15,7 +15,7 @@ const CollectionList = () => {
             setCollections(data.collections);
         };
         fetchAllCollections();
-    }, []);
+    }, [collections.length]);
 
     const handleDelete = (name: string) => {
         console.log("deleting collection", name);
@@ -26,9 +26,11 @@ const CollectionList = () => {
             <h1 className="px-4 py-4 font-bold">My PDFS</h1>
             <hr className="" />
             <ul className="py-4 max-w-md divide-y divide-gray-200 dark:divide-gray-700 flex-col w-full items-center">
-                {collections.map((collection) => (
-                    <Collection key={collection} name={collection} onDelete={handleDelete} />
-                ))}
+                <div className="overflow-y-auto h-[50vh] p-7 custom-scrollbar">
+                    {collections.map((collection) => (
+                        <Collection key={collection} name={collection} onDelete={handleDelete} />
+                    ))}
+                </div>
                 <div
                     className="flex items-center justify-center cursor-pointer  hover:opacity-80 rounded"
                     // onClick={() => setCollections([...collections, "New Collection"])}

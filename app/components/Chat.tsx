@@ -7,7 +7,6 @@ import { currentTimeCzechia } from "../utils/helper";
 import { useParams } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import "./style.css";
-
 enum SenderEnum {
     Assistent = "assistant",
     User = "user",
@@ -23,6 +22,7 @@ interface ChatProps {
 
 const Chat = () => {
     const params = useParams<{ collectionName: string }>();
+
     const [isTyping, setIsTyping] = useState(false);
 
     const [messages, setMessages] = useState<ChatProps[]>([]);
@@ -43,7 +43,7 @@ const Chat = () => {
             setMessages([
                 {
                     type: SenderEnum.Assistent,
-                    message: `Hello, I am an AI assistant. How can I help you in ${params.collectionName} collection?`,
+                    message: `Hello, I am an AI assistant. How can I help you in document collection?`,
                     date: currentTimeCzechia(),
                 },
             ]);
@@ -80,7 +80,7 @@ const Chat = () => {
         });
 
         try {
-            const response = await fetch("http://localhost:3000/api/chat", {
+            const response = await fetch(`${process.env.SERVER_URL}/api/chat`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -106,7 +106,7 @@ const Chat = () => {
         <div className="bg-gray-700 h-[100vh]">
             <div className={`flex justify-start gap-2.5 rounded bg-blue-gray-400  flex-col h-[92vh] overflow-y-auto `}>
                 <div className="fixed top-0 w-full  bg-gray-800 p-4 ">
-                    <h3>{params.collectionName}</h3>
+                    <h3 className="text-white">{params.collectionName}</h3>
                 </div>
 
                 <div className="w-4/5 mx-auto">

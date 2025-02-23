@@ -31,6 +31,7 @@ const Collection: React.FC<CollectionProps> = ({ name, onDelete }) => {
                         className="text-sm font-medium text-gray-900 truncate dark:text-white hover:underline"
                         onClick={() => {
                             router.push(`/chat/${name}`);
+                            // window.history.pushState("/chat", "undefined", `${name}`);
                         }}
                     >
                         {name}
