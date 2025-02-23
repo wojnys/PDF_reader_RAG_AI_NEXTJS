@@ -29,7 +29,12 @@ const Chat = () => {
     const [input, setInput] = useState<string>("");
 
     useEffect(() => {
-        const options: any = { weekday: "long", year: "numeric", month: "short", day: "numeric" };
+        const options: Intl.DateTimeFormatOptions = {
+            weekday: "long",
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+        };
 
         const currentDate = new Date();
         console.log(currentDate.toLocaleDateString("cs-CS", options));
@@ -60,7 +65,7 @@ const Chat = () => {
         setMessages(msgs);
         setInput("");
 
-        let apiMessages = msgs.map((msg) => {
+        const apiMessages = msgs.map((msg) => {
             if (msg.type === SenderEnum.User) {
                 return {
                     role: SenderEnum.User,

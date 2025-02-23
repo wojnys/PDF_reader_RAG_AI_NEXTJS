@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 const CollectionList = () => {
     const [collections, setCollections] = useState<string[]>([]);
-    const router = useRouter();
+
     useEffect(() => {
         const fetchAllCollections = async () => {
             const res = await fetch("/api/collection");

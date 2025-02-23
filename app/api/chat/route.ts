@@ -3,7 +3,7 @@ import OpenAI from "openai";
 import "dotenv/config";
 import { NextResponse } from "next/server";
 
-const { ASTRA_DB_NAMESPACE, ASTRA_DB_COLLECTION, ASTRA_DB_ENDPOINT, DB_APP_TOKEN, OPEN_AI_API_key } = process.env;
+const { ASTRA_DB_NAMESPACE, ASTRA_DB_ENDPOINT, DB_APP_TOKEN, OPEN_AI_API_key } = process.env;
 
 const openapi = new OpenAI({ apiKey: OPEN_AI_API_key });
 
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
 
             const documents = await cursor.toArray();
             const docsMap = documents.map((doc) => doc.text);
-            let docContext = JSON.stringify(docsMap);
+            const docContext = JSON.stringify(docsMap);
 
             // const template = {
             //     role: "system",

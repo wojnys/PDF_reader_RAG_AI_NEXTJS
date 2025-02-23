@@ -9,7 +9,11 @@ interface DropZoneProps {
 const DropZone: React.FC<DropZoneProps> = ({ onFileChange }) => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-    const handleFileChange = (event: any) => {
+    interface FileChangeEvent extends React.ChangeEvent<HTMLInputElement> {
+        target: HTMLInputElement & { files: FileList };
+    }
+
+    const handleFileChange = (event: FileChangeEvent) => {
         const file = event.target.files[0];
         if (file) {
             setSelectedFile(file);

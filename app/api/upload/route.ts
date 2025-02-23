@@ -5,7 +5,6 @@ import { writeFile } from "fs/promises";
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 
 import { DataAPIClient } from "@datastax/astra-db-ts";
-import { PuppeteerWebBaseLoader } from "@langchain/community/document_loaders/web/puppeteer";
 import OpenAI from "openai";
 
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
@@ -19,7 +18,7 @@ const getFilename = (file: File) => {
     return `file_${timestamp}.${extension}`;
 };
 
-const { ASTRA_DB_NAMESPACE, ASTRA_DB_COLLECTION, ASTRA_DB_ENDPOINT, DB_APP_TOKEN, OPEN_AI_API_key } = process.env;
+const { ASTRA_DB_NAMESPACE, ASTRA_DB_ENDPOINT, DB_APP_TOKEN, OPEN_AI_API_key } = process.env;
 
 const openapi = new OpenAI({ apiKey: OPEN_AI_API_key });
 
@@ -33,8 +32,6 @@ const splitter = new RecursiveCharacterTextSplitter({
 
 // Define the POST handler for the file upload
 export const POST = async (req: Request) => {
-    console.log("File Upload Request Received", req);
-
     // Parse the incoming form data
     const formData = await req.formData();
 
@@ -85,7 +82,7 @@ export const POST = async (req: Request) => {
                 });
                 console.log(embeddings);
                 const vector = embeddings.data[0].embedding;
-                const res = await collection.insertOne({
+                await collection.insertOne({
                     $vector: vector,
                     text: chunk,
                 });

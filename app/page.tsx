@@ -1,7 +1,4 @@
 "use client";
-import Chat from "./components/Chat";
-import UploadPdf from "./components/UploadPdf";
-import CollectionList from "./components/CollectionList";
 import Link from "next/link";
 
 export default function Home() {
