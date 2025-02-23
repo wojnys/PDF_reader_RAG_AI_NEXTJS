@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { currentTimeCzechia } from "../utils/helper";
 import { useParams } from "next/navigation";
 import ReactMarkdown from "react-markdown";
+
 import "./style.css";
 enum SenderEnum {
     Assistent = "assistant",
@@ -81,7 +82,7 @@ const Chat = () => {
 
         console.log(process.env.SERVER_URL);
         try {
-            const response = await fetch(`${process.env.SERVER_URL}/api/chat`, {
+            const response = await fetch(`/api/chat`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

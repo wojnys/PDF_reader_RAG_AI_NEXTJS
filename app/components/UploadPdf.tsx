@@ -32,7 +32,7 @@ export default function UploadPdf() {
         }
 
         try {
-            await fetch(`${process.env.SERVER_URL}/api/upload`, {
+            await fetch(`/api/upload`, {
                 method: "POST",
                 body: formData,
             });
