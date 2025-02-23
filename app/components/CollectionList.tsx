@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Collection from "./Collections/Collection";
 
 import UploadPdf from "./UploadPdf";
-import { useRouter } from "next/navigation";
 
 const CollectionList = () => {
     const [collections, setCollections] = useState<string[]>([]);
@@ -22,8 +21,6 @@ const CollectionList = () => {
         console.log("deleting collection", name);
         setCollections(collections.filter((collection) => collection !== name));
     };
-
-    console.log(collections);
     return (
         <div>
             <h1 className="px-4 py-4 font-bold">My PDFS</h1>

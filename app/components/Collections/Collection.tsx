@@ -30,7 +30,7 @@ const Collection: React.FC<CollectionProps> = ({ name, onDelete }) => {
                     <p
                         className="text-sm font-medium text-gray-900 truncate dark:text-white hover:underline"
                         onClick={() => {
-                            router.replace(`/chat/${name}`);
+                            router.push(`/chat/${name}`);
                         }}
                     >
                         {name}

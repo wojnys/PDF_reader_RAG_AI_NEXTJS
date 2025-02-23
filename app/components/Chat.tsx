@@ -119,7 +119,7 @@ const Chat = () => {
                                         ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXjdFdSaE2EGhsiJ-efscXpSV1mUgBR-shCA&s"
                                         : "https://www.dominikwojnar.cz/favicon.png"
                                 }`}
-                                alt="Jese image"
+                                alt="image"
                             />
                             <div
                                 className={`flex flex-col w-full ${
@@ -142,7 +142,11 @@ const Chat = () => {
                     ))}
                     {isTyping && (
                         <div className="sticky bottom-2 px-4 left-0">
-                            <img src="https://assets-v2.lottiefiles.com/a/88006af4-1185-11ee-a2bd-9f5d516c6482/nwsyoDcISP.gif" className="w-12" />
+                            <img
+                                src="https://assets-v2.lottiefiles.com/a/88006af4-1185-11ee-a2bd-9f5d516c6482/nwsyoDcISP.gif"
+                                className="w-12"
+                                alt="imga-2"
+                            />
                         </div>
                     )}
 
