@@ -6,6 +6,8 @@
 
 ### And dinally via openAI API you can handle prompts to uour PDF data (summary, school questions, etc...)
 
+![alt text](<Screenshot 2025-02-23 at 15.45.46.png>)
+
 ## Getting Started
 
 First, run the development server:
