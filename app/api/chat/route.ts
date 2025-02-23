@@ -12,7 +12,7 @@ const db = client.db(ASTRA_DB_ENDPOINT as string, { namespace: ASTRA_DB_NAMESPAC
 
 export async function POST(req: Request) {
     try {
-        const { message } = await req.json();
+        const { message, collectionName } = await req.json();
         console.log(message);
 
         const latestMessage = message[message?.length - 1]?.content;
@@ -24,14 +24,14 @@ export async function POST(req: Request) {
         });
 
         try {
-            const collection = await db.collection(ASTRA_DB_COLLECTION as string);
+            const collection = await db.collection(collectionName as string);
             const cursor = collection.find(
                 {},
                 {
                     sort: {
                         $vector: embedding.data[0].embedding,
                     },
-                    limit: 10,
+                    limit: 100,
                 }
             );
 
@@ -39,13 +39,25 @@ export async function POST(req: Request) {
             const docsMap = documents.map((doc) => doc.text);
             let docContext = JSON.stringify(docsMap);
 
+            // const template = {
+            //     role: "system",
+            //     content: `You are an AI assistant who knows everything about document from collection. Use the below context to augment what you know about Document.
+            //         The context will provide you data which will cover all neccesary informations.
+            //         If the context doesn't include the information you need answer based on your existing knowledge and don't mention the source of your information or
+            //         what the context does or doesn't include.
+            //         Format responses using markdown where applicable and don't return images.
+            //         ---------
+            //         START CONTEXT
+            //         ${docContext}
+            //         END CONTEXT
+            //         ----------
+            //         QUESTION: ${latestMessage}
+            //         `,
+            // };
             const template = {
                 role: "system",
-                content: `You are an AI assistant who knows everything about Formula One. Use the below context to augment what you know about Formula One racing. 
-                    The context will provide you with the most recent page data from wikipedia, the official F1 website and others. I
-                    If the context doesn't include the information you need answer based on your existing knowledge and don't mention the source of your information or
-                    what the context does or doesn't include.
-                    Format responses using markdown where applicable and don't return images.
+                content: `Analyze and extract relevant data only from the document I have provided. Do not use external knowledge or assumptions.
+                 Display the extracted information in a structured format based solely on the content of the uploaded document.
                     ---------
                     START CONTEXT 
                     ${docContext}
@@ -62,7 +74,7 @@ export async function POST(req: Request) {
             });
 
             console.log(chatResponse.choices[0].message.content);
-            return NextResponse.json({ message: chatResponse.choices[0].message.content });
+            return NextResponse.json({ message: chatResponse.choices[0].message.content as string });
         } catch (error) {
             console.log(error);
         }

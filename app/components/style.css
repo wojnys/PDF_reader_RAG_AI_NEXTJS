@@ -1,0 +1,15 @@
+/* styles.css or inside a <style> tag */
+.markdown-content ul {
+    list-style-type: none; /* Remove default bullets */
+    padding-left: 1.5em; /* Adjust indentation */
+}
+
+.markdown-content ul li {
+    position: relative;
+}
+
+.markdown-content ul li:before {
+    content: "-"; /* Add dash as pseudo-element */
+    position: absolute;
+    left: -1em; /* Position the dash before the text */
+}

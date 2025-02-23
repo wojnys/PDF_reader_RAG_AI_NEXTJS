@@ -1,13 +1,10 @@
-# F1_OPENAI_Chat
+# PDF reader RAG
 
-### If you are a fan of F1, you will love it.  
+### Main task of my application is to load PDF you want
 
-- ### I have built a chat app using Next.js, LangChain, DataStax, and OpenAI API.  
-- ### I scrape data, process it by converting text into embeddings (vectors), and store it in the DataStax vector database.  
-- ### You can chat with AI and request the latest news.  
+### Then PDF will be converted into vector storage (I am using datastax)
 
-
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+### And dinally via openAI API you can handle prompts to uour PDF data (summary, school questions, etc...)
 
 ## Getting Started
 
@@ -33,8 +30,8 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+-   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 

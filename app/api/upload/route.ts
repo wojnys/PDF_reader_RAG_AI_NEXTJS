@@ -54,6 +54,7 @@ export const POST = async (req: Request) => {
 
     // Replace spaces in the file name with underscores
     const collectionName: string = pdfName.toString().replace(/\s/g, "_");
+    console.log("Collection Name: ", collectionName);
 
     try {
         // Write the file to the specified directory (public/assets) with the modified filename

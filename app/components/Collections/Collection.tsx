@@ -2,7 +2,8 @@
 
 import { faFileAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useRouter } from "next/navigation";
 
 interface CollectionProps {
     name: string;
@@ -10,6 +11,8 @@ interface CollectionProps {
 }
 
 const Collection: React.FC<CollectionProps> = ({ name, onDelete }) => {
+    const router = useRouter();
+
     const handleDelete = (name: string) => {
         console.log("deleting collection", name);
         onDelete(name);
@@ -23,8 +26,15 @@ const Collection: React.FC<CollectionProps> = ({ name, onDelete }) => {
                 <div className="shrink-0">
                     <FontAwesomeIcon icon={faFileAlt} className="w-8 h-8 rounded-full" />
                 </div>
-                <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate dark:text-white">{name}</p>
+                <div className="flex-1 min-w-0 group">
+                    <p
+                        className="text-sm font-medium text-gray-900 truncate dark:text-white hover:underline"
+                        onClick={() => {
+                            router.replace(`/chat/${name}`);
+                        }}
+                    >
+                        {name}
+                    </p>
                     <p className="text-sm text-gray-500 truncate dark:text-gray-400">email@flowbite.com</p>
                 </div>
                 <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">

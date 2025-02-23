@@ -1,13 +1,13 @@
+"use client";
 import { useEffect, useState } from "react";
 import Collection from "./Collections/Collection";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import { set } from "zod";
+
 import UploadPdf from "./UploadPdf";
+import { useRouter } from "next/navigation";
 
 const CollectionList = () => {
     const [collections, setCollections] = useState<string[]>([]);
-
+    const router = useRouter();
     useEffect(() => {
         const fetchAllCollections = async () => {
             const res = await fetch("/api/collection");
