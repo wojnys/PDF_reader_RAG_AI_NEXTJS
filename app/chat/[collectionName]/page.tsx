@@ -4,12 +4,11 @@ import { useState, useEffect } from "react";
 import Chat from "@/app/components/Chat";
 import CollectionList from "@/app/components/CollectionList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const ChatPage = () => {
     const [isMobileView, setIsMobileView] = useState(false);
     const [isCollectionListVisible, setIsCollectionListVisible] = useState(false);
-    const [isRotating, setIsRotating] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -25,11 +24,7 @@ const ChatPage = () => {
     }, []);
 
     const handleArrowClick = () => {
-        setIsRotating(true);
         setIsCollectionListVisible(!isCollectionListVisible);
-        setTimeout(() => {
-            setIsRotating(false);
-        }, 500); // Duration of the rotation animation
     };
 
     return (
