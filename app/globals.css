@@ -38,3 +38,17 @@ body {
     background: #555;
     cursor: pointer;
 }
+
+/* Animation */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(90deg);
+    }
+}
+
+.rotate-animation {
+    animation: rotate 0.25s linear;
+}

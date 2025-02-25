@@ -111,7 +111,7 @@ const Chat = () => {
                     <h3 className="text-white">{params.collectionName}</h3>
                 </div>
 
-                <div className="w-4/5 mx-auto">
+                <div className="w-4/5 mx-auto" style={{ paddingTop: "40px" }}>
                     {messages.map((msg, index) => (
                         <div className={`p-4 flex flex-col w-full ${msg.type == SenderEnum.Assistent ? "items-start" : "items-end"}`} key={index}>
                             <img
@@ -152,11 +152,11 @@ const Chat = () => {
                         </div>
                     )}
 
-                    <div className="fixed bottom-3 flex justify-between items-center w-1/2 gap-2 mt-auto h-[8vh] p-4">
+                    <div className="fixed bottom-3 flex justify-between  items-center w-4/6 md:w-4/6 lg:w-1/2 gap-2 mt-auto h-[8vh] p-4 rounded-e-xl  rounded-es-xl bg-gray-500">
                         <input
                             type="text"
                             placeholder="Type a message"
-                            className=" p-4 border-gray-200 bg-gray-100 rounded-e-xl w-full rounded-es-xl dark:bg-gray-500"
+                            className=" p-4 bg-gray-500 w-full outline-none text-white"
                             onChange={(e) => {
                                 setInput(e.target.value);
                             }}
