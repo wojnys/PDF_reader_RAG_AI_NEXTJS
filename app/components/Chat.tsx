@@ -8,6 +8,7 @@ import { useParams } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 
 import "./style.css";
+import GoDownButton from "./Buttons/GoDownButton";
 enum SenderEnum {
     Assistent = "assistant",
     User = "user",
@@ -28,6 +29,8 @@ const Chat = () => {
 
     const [messages, setMessages] = useState<ChatProps[]>([]);
     const [input, setInput] = useState<string>("");
+
+    const inputRef = useRef<HTMLTextAreaElement | null>(null);
 
     useEffect(() => {
         const options: Intl.DateTimeFormatOptions = {
@@ -56,7 +59,6 @@ const Chat = () => {
     useEffect(() => {
         if (lastMessageRef.current) {
             lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
-            console.log(lastMessageRef.current);
         }
     }, [messages]); // Runs when messages update
 
@@ -106,14 +108,14 @@ const Chat = () => {
 
     return (
         <div className="bg-gray-700 h-[100vh]">
-            <div className={`flex justify-start gap-2.5 rounded bg-blue-gray-400  flex-col h-[92vh] overflow-y-auto `}>
+            <div className={`flex justify-start gap-2.5 rounded bg-blue-gray-400  flex-col h-[92vh] overflow-y-auto  custom-scrollbar`}>
                 <div className="fixed top-0 w-full  bg-gray-800 p-4 ">
                     <h3 className="text-white">{params.collectionName}</h3>
                 </div>
 
                 <div className="w-4/5 mx-auto" style={{ paddingTop: "40px" }}>
                     {messages.map((msg, index) => (
-                        <div className={`p-4 flex flex-col w-full ${msg.type == SenderEnum.Assistent ? "items-start" : "items-end"}`} key={index}>
+                        <div className={`py-4 flex flex-col w-full ${msg.type == SenderEnum.Assistent ? "items-start" : "items-end"}`} key={index}>
                             <img
                                 className="w-8 h-8 rounded-full m-2"
                                 src={`${
@@ -126,15 +128,15 @@ const Chat = () => {
                             <div
                                 className={`flex flex-col w-full ${
                                     msg.type == SenderEnum.Assistent ? "items-start" : "items-end"
-                                }  max-w-full leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-500`}
+                                }  max-w-full leading-1.5 p-4 border-gray-200 rounded-e-xl rounded-es-xl bg-gray-500`}
                             >
                                 <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                                    <span className="text-sm font-semibold text-gray-900 dark:text-white">{msg.type}</span>
-                                    <span className="text-sm font-normal text-gray-500 dark:text-gray-400">{msg.date}</span>
+                                    <span className="text-sm font-semibold  text-white">{msg.type}</span>
+                                    <span className="text-sm font-normal  text-gray-400">{msg.date}</span>
                                 </div>
 
                                 <div
-                                    className="markdown-content text-sm font-normal py-2.5 text-gray-900 dark:text-white"
+                                    className="markdown-content text-sm font-normal py-2.5text-white"
                                     ref={index === messages.length - 1 ? lastMessageRef : null} // Attach ref to last message
                                 >
                                     <ReactMarkdown>{msg.message}</ReactMarkdown>
@@ -152,19 +154,44 @@ const Chat = () => {
                         </div>
                     )}
 
-                    <div className="fixed bottom-3 flex justify-between  items-center w-4/6 md:w-4/6 lg:w-1/2 gap-2 mt-auto h-[8vh] p-4 rounded-e-xl  rounded-es-xl bg-gray-500">
-                        <input
-                            type="text"
-                            placeholder="Type a message"
-                            className=" p-4 bg-gray-500 w-full outline-none text-white"
-                            onChange={(e) => {
-                                setInput(e.target.value);
-                            }}
-                            value={input}
-                        />
-                        <button onClick={handleChat} className="flex items-center">
-                            <FontAwesomeIcon icon={faPaperPlane} size="sm" className="bg-white w-4 h-4 p-3 rounded-full text-black" />
-                        </button>
+                    <div className="relative z-10 flex  w-full flex-1 flex-col">
+                        <div className="group relative z-10 flex w-full items-center">
+                            <div className="w-full">
+                                <div
+                                    id="composer-background"
+                                    className="flex w-full cursor-text flex-col rounded-3xl border border-gray-300 px-3 py-1 transition ease-in-out border-none shadow-md focus:shadow-lg bg-gray-800"
+                                >
+                                    <div className="flex flex-col justify-start">
+                                        <div className="flex min-h-[44px] items-start pl-1">
+                                            <div className="min-w-0 max-w-full flex-1">
+                                                <div className="text-white max-h-52 overflow-auto">
+                                                    <textarea
+                                                        className="block h-32 w-full resize-none border-0 bg-transparent px-0 py-2 text-white placeholder-gray-400 focus:outline-none"
+                                                        placeholder="Ask me..."
+                                                        onChange={(e) => {
+                                                            setInput(e.target.value);
+                                                        }}
+                                                        value={input}
+                                                        ref={inputRef}
+                                                    ></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="mb-2 mt-1 flex items-center justify-between sm:mt-5">
+                                        <div>
+                                            <button onClick={handleChat} className="flex items-center">
+                                                <FontAwesomeIcon
+                                                    icon={faPaperPlane}
+                                                    size="sm"
+                                                    className="bg-white w-4 h-4 p-3 rounded-full text-black"
+                                                />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
